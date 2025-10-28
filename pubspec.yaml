@@ -1,0 +1,46 @@
+name: flutter_application_1
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.9.2 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # iOS style icons (bawaan contoh Flutter)
+  cupertino_icons: ^1.0.8
+
+  # Google Fonts (opsional, memudahkan pakai font dari Google)
+  google_fonts: ^5.0.0
+
+  # State management ringan (opsional — hapus jika tidak mau)
+  provider: ^6.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Lints (kode lebih rapi)
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Asset yang saya rekomendasikan untuk ditambahkan:
+  # - assets/illustration.png  (gambar ilustrasi untuk halaman Lupa Password)
+  # - assets/images/           (jika kamu punya banyak gambar)
+  assets:
+    - assets/illustration.png
+    - assets/images/
+
+  # Contoh menambahkan font kustom (jika kamu ingin menyertakan font dari Figma)
+  # Hapus atau ubah jika tidak menggunakan font kustom.
+  # fonts:
+  #   - family: Inter
+  #     fonts:
+  #       - asset: assets/fonts/Inter-Regular.ttf
+  #       - asset: assets/fonts/Inter-Bold.ttf
+  #         weight: 700
