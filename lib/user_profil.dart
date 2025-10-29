@@ -1,55 +1,39 @@
-// User_profil.dart
-
 import 'package:flutter/material.dart';
 
 // Ini adalah widget utama untuk layar profil Anda
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  // PERBAIKAN: Menggunakan 'super.key' (fitur Dart 3)
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Kita gunakan warna latar belakang abu-abu muda, seperti di desain
       backgroundColor: Colors.grey[100],
-      
-      // AppBar untuk judul "information account"
       appBar: AppBar(
         title: Text(
           'information account',
           style: TextStyle(
-            color: Colors.black, // Teks warna hitam
+            color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
         ),
-        // Kita buat AppBar transparan dan tanpa bayangan
         backgroundColor: Colors.grey[100],
         elevation: 0,
-        // Menonaktifkan tombol kembali otomatis (jika ada)
-        automaticallyImplyLeading: false, 
+        automaticallyImplyLeading: false,
       ),
-      
-      // Body utama dari layar
       body: SingleChildScrollView(
-        // SingleChildScrollView memungkinkan layar untuk di-scroll
-        // jika kontennya lebih panjang dari layar (misal di HP kecil)
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 20), // Memberi jarak dari AppBar
+              const SizedBox(height: 20),
               
               // --- Bagian Header Profil ---
-              
-              // Avatar (Gambar Profil)
               CircleAvatar(
-                radius: 50, // Ukuran lingkaran
-                // Anda bisa mengganti ini dengan gambar dari internet (NetworkImage)
-                // atau dari aset lokal Anda (AssetImage)
-                // Pastikan Anda menambahkan 'assets/images/profile_pic.jpg' ke file pubspec.yaml Anda
+                radius: 50,
                 backgroundImage: AssetImage('assets/images/profile_pic.jpg'),
-                // Jika gambar gagal dimuat, tampilkan ikon orang
                 onBackgroundImageError: (exception, stackTrace) => Icon(
                   Icons.person,
                   size: 50,
@@ -58,9 +42,8 @@ class ProfileScreen extends StatelessWidget {
                 backgroundColor: Colors.grey[200],
               ),
               
-              const SizedBox(height: 16), // Jarak
+              const SizedBox(height: 16),
               
-              // Nama Pengguna
               Text(
                 'Freyanashifa',
                 style: TextStyle(
@@ -70,27 +53,25 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               
-              const SizedBox(height: 4), // Jarak kecil
+              const SizedBox(height: 4),
               
-              // Lokasi Pengguna
               Text(
                 'Jakarta, Indonesia',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.grey[600], // Warna abu-abu
+                  color: Colors.grey[600],
                 ),
               ),
               
-              const SizedBox(height: 32), // Jarak besar sebelum menu
+              const SizedBox(height: 32),
               
               // --- Bagian Daftar Menu ---
-              // Kita akan membuat widget helper untuk ini agar kode tetap bersih
               
               ProfileMenuItem(
                 icon: Icons.person_outline,
                 text: 'Edit Profile',
                 onTap: () {
-                  // Tambahkan logika pindah halaman di sini
+                  // Kita biarkan 'print' untuk debugging
                   print('Edit Profile diklik');
                 },
               ),
@@ -104,7 +85,8 @@ class ProfileScreen extends StatelessWidget {
               ),
               
               ProfileMenuItem(
-                icon: Icons.location_on_outline,
+                // PERBAIKAN: Mengganti 'location_on_outline' menjadi 'location_on_outlined'
+                icon: Icons.location_on_outlined, 
                 text: 'My Location',
                 onTap: () {
                   print('My Location diklik');
@@ -115,7 +97,6 @@ class ProfileScreen extends StatelessWidget {
                 icon: Icons.logout,
                 text: 'Logout',
                 onTap: () {
-                  // Tambahkan logika untuk logout di sini
                   print('Logout diklik');
                 },
               ),
@@ -125,44 +106,40 @@ class ProfileScreen extends StatelessWidget {
       ),
       
       // --- Bottom Navigation Bar Kustom ---
-      // Ini adalah bagian yang paling menarik dari desain
       bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }
 
 /// WIDGET HELPER UNTUK ITEM MENU PROFIL
-/// Membuat widget terpisah seperti ini membuat kode utama (di atas)
-/// jauh lebih bersih dan mudah dibaca.
 class ProfileMenuItem extends StatelessWidget {
   final IconData icon;
   final String text;
   final VoidCallback onTap;
 
   const ProfileMenuItem({
-    Key? key,
+    // PERBAIKAN: Menggunakan 'super.key'
+    super.key,
     required this.icon,
     required this.text,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Kita gunakan Container untuk membuat 'card'
-    // dan InkWell untuk efek 'splash' saat diklik
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(20), // Efek splash mengikuti bentuk
+      borderRadius: BorderRadius.circular(20),
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8), // Jarak antar item
+        margin: const EdgeInsets.symmetric(vertical: 8),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white, // Warna kartu putih
-          borderRadius: BorderRadius.circular(20), // Sudut yang sangat bulat
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
-            // Bayangan halus untuk efek 'mengambang'
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              // PERBAIKAN: Mengganti '.withOpacity(0.05)' menjadi '.withAlpha(13)'
+              color: Colors.black.withAlpha(13), 
               blurRadius: 10,
               offset: Offset(0, 4),
             ),
@@ -170,10 +147,8 @@ class ProfileMenuItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Ikon di sebelah kiri
             Icon(icon, color: Colors.grey[700], size: 28),
-            const SizedBox(width: 16), // Jarak antara ikon dan teks
-            // Teks
+            const SizedBox(width: 16),
             Expanded(
               child: Text(
                 text,
@@ -183,7 +158,6 @@ class ProfileMenuItem extends StatelessWidget {
                 ),
               ),
             ),
-            // Ikon panah di sebelah kanan
             Icon(Icons.chevron_right, color: Colors.grey[400], size: 28),
           ],
         ),
@@ -194,36 +168,33 @@ class ProfileMenuItem extends StatelessWidget {
 
 /// WIDGET HELPER UNTUK BOTTOM NAVIGATION BAR KUSTOM
 class CustomBottomNavBar extends StatelessWidget {
-  const CustomBottomNavBar({Key? key}) : super(key: key);
+  // PERBAIKAN: Menggunakan 'super.key'
+  const CustomBottomNavBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Ini adalah 'bar' putih di bagian bawah
     return Container(
-      height: 80, // Tinggi bar, beri ruang untuk tombol bulat
+      height: 80,
       padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
-        // Membuat sudut atasnya melengkung
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(24),
           topRight: Radius.circular(24),
         ),
-        // Bayangan di atas bar
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            // PERBAIKAN: Mengganti '.withOpacity(0.1)' menjadi '.withAlpha(26)'
+            color: Colors.black.withAlpha(26), 
             blurRadius: 10,
-            offset: Offset(0, -2), // Bayangan hanya di atas
+            offset: Offset(0, -2),
           ),
         ],
       ),
-      // Row menampung semua 5 item navigasi
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Kita panggil 5 item, dan tandai 'Profile' sebagai 'isActive'
           BottomNavItem(
             icon: Icons.home_outlined,
             text: 'Home',
@@ -249,9 +220,9 @@ class CustomBottomNavBar extends StatelessWidget {
             onTap: () {},
           ),
           BottomNavItem(
-            icon: Icons.person, // Ikon solid untuk yang aktif
+            icon: Icons.person,
             text: 'Profile',
-            isActive: true, // Ini yang membedakannya
+            isActive: true,
             onTap: () {},
           ),
         ],
@@ -268,30 +239,28 @@ class BottomNavItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const BottomNavItem({
-    Key? key,
+    // PERBAIKAN: Menggunakan 'super.key'
+    super.key,
     required this.icon,
     required this.text,
     required this.isActive,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Warna biru yang kita lihat di desain
-    final Color activeColor = Color(0xFF0D63F1); // Anda bisa ganti kodenya
+    final Color activeColor = Color(0xFF0D63F1);
     final Color inactiveColor = Colors.grey[600]!;
 
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(20), // Efek splash
+      borderRadius: BorderRadius.circular(20),
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Column(
-          mainAxisSize: MainAxisSize.min, // Membuat Column sekecil mungkin
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Logika utama:
-            // JIKA 'isActive' adalah true, tampilkan lingkaran biru
             if (isActive)
               Container(
                 padding: const EdgeInsets.all(8.0),
@@ -301,13 +270,11 @@ class BottomNavItem extends StatelessWidget {
                 ),
                 child: Icon(icon, color: Colors.white, size: 26),
               )
-            // JIKA false, tampilkan ikon biasa
             else
               Icon(icon, color: inactiveColor, size: 26),
             
-            const SizedBox(height: 4), // Jarak antara ikon dan teks
+            const SizedBox(height: 4),
             
-            // Teks di bawah ikon
             Text(
               text,
               style: TextStyle(
